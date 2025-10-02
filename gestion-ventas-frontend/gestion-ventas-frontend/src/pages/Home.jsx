@@ -5,12 +5,12 @@ import Caja from "./Caja";
 
 export default function Home() {
   return (
-    <div className="flex h-screen">
+    <div className="flex justify-center items self-center ">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Contenido principal */}
-      <div className="flex-1 p-6 bg-white">
+      <div className="flex p-6 bg-white">
         <Routes>
           <Route path="inventario" element={<Inventario />} />
           <Route path="caja" element={<Caja />} />
