@@ -2,8 +2,11 @@ import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import logo from "../assets/MidoriRollLogo.png";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,6 +23,7 @@ export default function Login() {
     e.preventDefault();
     console.log("Datos enviados:", formData);
     // Aquí después conectaremos con /services/auth
+    navigate("/home");
   };
 
   return (
@@ -47,9 +51,8 @@ export default function Login() {
           </h1>
           <Input
             label="Usuario"
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="text"
             onChange={handleChange}
           />
 
@@ -61,7 +64,12 @@ export default function Login() {
             onChange={handleChange}
           />
 
-          <Button text="Ingresar" type="submit" className="w-full mt-4" />
+          <Button
+            text="Ingresar"
+            type="submit"
+            className="w-full mt-4"
+            Onclick={handleSubmit}
+          />
         </form>
       </div>
     </div>
