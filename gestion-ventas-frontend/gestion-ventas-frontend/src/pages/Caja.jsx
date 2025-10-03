@@ -27,8 +27,8 @@ export default function Caja() {
   const total = cuenta.reduce((acc, item) => acc + item.precio, 0);
 
   return (
-    <div className="flex-1 p-6 bg-gray-100 min-h-screen w-full">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">
+    <div className="flex-1 p-6 bg-gray-100 min-h-screen w-full flex flex-col items-center">
+      <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         Caja Registradora
       </h1>
 
