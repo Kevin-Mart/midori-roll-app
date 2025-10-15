@@ -6,10 +6,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    usuario: "",
+    contra: "",
   });
 
   const handleChange = (e) => {
@@ -19,11 +19,27 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos enviados:", formData);
-    // Aquí después conectaremos con /services/auth
-    navigate("/home");
+    console.log(formData);
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.text();
+
+      if (result === "OK") {
+        navigate("/home");
+      } else {
+        setError("Credenciales incorrectas");
+      }
+    } catch (err) {
+      setError("Error en la solicitud");
+    }
   };
 
   return (
@@ -52,24 +68,20 @@ export default function Login() {
           <Input
             label="Usuario"
             type="text"
-            name="text"
+            name="usuario"
+            value={formData.usuario}
             onChange={handleChange}
           />
 
           <Input
             label="Contraseña"
             type="password"
-            name="password"
-            value={formData.password}
+            name="contra"
+            value={formData.contra}
             onChange={handleChange}
           />
 
-          <Button
-            text="Ingresar"
-            type="submit"
-            className="w-full mt-4"
-            Onclick={handleSubmit}
-          />
+          <Button text="Ingresar" type="submit" className="w-full mt-4" />
         </form>
       </div>
     </div>
